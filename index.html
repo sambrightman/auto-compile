@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset='utf-8' />
+    <meta http-equiv="X-UA-Compatible" content="chrome=1" />
+    <meta name="description" content="auto-compile.el : Automatically compile Emacs Lisp libraries" />
+
+    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
+
+    <title>auto-compile.el</title>
+  </head>
+
+  <body>
+
+    <!-- HEADER -->
+    <div id="header_wrap" class="outer">
+        <header class="inner">
+          <a id="forkme_banner" href="https://github.com/tarsius/auto-compile">View on GitHub</a>
+
+          <h1 id="project_title">auto-compile.el</h1>
+          <h2 id="project_tagline">Automatically compile Emacs Lisp libraries</h2>
+
+            <section id="downloads">
+              <a class="zip_download_link" href="https://github.com/tarsius/auto-compile/zipball/master">Download this project as a .zip file</a>
+              <a class="tar_download_link" href="https://github.com/tarsius/auto-compile/tarball/master">Download this project as a tar.gz file</a>
+            </section>
+        </header>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div id="main_content_wrap" class="outer">
+      <section id="main_content" class="inner">
+        <p>This package provides two minor modes <code>auto-compile-global-mode</code> and <code>auto-compile-on-load-mode</code> which keep byte code files (<code>.elc</code>) up-to-date with their Emacs Lisp source files (<code>.el</code>).</p>
+
+<h3>Status</h3>
+
+<p>This is a pre-release.  Version <code>1.1.0</code> (not <code>1.0.0</code>) will be the first stable release.  This is inspired by how Emacs versions are numbered. Do not use versions before <code>1.0.1</code>.</p>
+
+<h3>Why?</h3>
+
+<p>Automatically compiling Emacs Lisp source files after each save and/or before loading is useful for at least the following reasons:</p>
+
+<p>Emacs prefers the byte code file over the source file even if the former is outdated.  Without a mode which automatically recompiles the source files you will at least occasionally forget to do so manually and end up with an old version of your code being loaded.</p>
+
+<p>There are many otherwise fine libraries to be found on the Internet which when compiled will confront the user with a wall of compile warnings and an occasional error.  If authors are informed about these (often trivial) problems after each save they will likely fix them quite quickly.  That or they have a high noise tolerance.</p>
+
+<p>It's often easier and less annoying to fix errors and warnings as they are introduced than to do a "let's compile today's work and see how it goes".</p>
+
+<h3>auto-compile-global-mode</h3>
+
+<p><code>auto-compile-global-mode</code> automatically compiles Emacs Lisp code when the visiting buffers are saved to their source files, provided that the respective byte code files already exists.  If the byte code file does not already exist nothing is done.</p>
+
+<p>To start or stop compiling a source file or multiple files at once use the command <code>toggle-auto-compile</code> which toggles automatic compilation by either compiling the selected source file(s) or by removing the respective byte code file(s).  The appropriate action is determined by the existence respectively absence of the byte code file.</p>
+
+<p>Auto-Compile mode is designed to stay out of your way as much as it can while still motivating you to get things fixed.  But Auto-Compile mode can also be configured to be more insistent, which might be annoying initially but less so once existing problems have been fixed.</p>
+
+<p>Occasionally you might be tempted to turn of Auto-Compile mode locally because you are doing some work which causes lots of expected warnings until you are actually done.  Don't do so: because Emacs prefers the byte code file you would also have to remove that, in which case you don't have to turn of this mode anymore.  In other words use the command <code>toggle-auto-compile</code> instead.</p>
+
+<h3>auto-compile-on-load-mode</h3>
+
+<p>Even when using <code>auto-compile-mode</code> it can sometimes happen that the source file is newer than the byte compile destination.  This can for example happen when performing version control operations. To ensure that byte code files are always up-to-date when being loaded using <code>require</code> and <code>load</code> enable <code>auto-compile-on-load-mode</code> which advises this functions to recompile the source files when needed.  Enable these mode before any potentially byte compiled files are loaded by beginning your init file with:</p>
+
+<pre><code>;; -*- no-byte-compile: t -*-
+(add-to-list 'load-path "/path/to/auto-compile")
+(require 'auto-compile)
+(auto-compile-on-load-mode 1)
+(auto-compile-global-mode 1)
+</code></pre>
+
+<h3>Further reading</h3>
+
+<p>As always also consult the <a href="https://github.com/tarsius/auto-compile/blob/master/auto-compile.el">library commentary</a>.  Also see <code>M-x customize-group auto-compile</code>.</p>
+      </section>
+    </div>
+
+    <!-- FOOTER  -->
+    <div id="footer_wrap" class="outer">
+      <footer class="inner">
+        <p class="copyright">auto-compile.el maintained by <a href="https://github.com/tarsius">tarsius</a></p>
+        <p>Published with <a href="http://pages.github.com">GitHub Pages</a></p>
+      </footer>
+    </div>
+
+    
+
+  </body>
+</html>
